@@ -12,21 +12,30 @@ class cuenta{
         this.titular = titular;
         this.saldo = saldo;
     }
-    ingresar(){
-     this.ingresar = prompt('Ingrese dinero');
-     document.write(`<p>${this.titular} ingreso a la cuenta ${this.ingresar} pesos</p>`)
+
+    ingresar(dineroADepositar) {     
+     this.saldo = this.saldo + dineroADepositar;
+     document.write(`<p>${this.titular} ingreso a la cuenta $${dineroADepositar}. El saldo actual es: ${this.saldo}.</p>`)
     }
-    extraer(){
-         this.extraer = prompt('Ponga cuanto va a retirar');
-        document.write(`<p>${this.titular} retiro de la cuenta ${this.extraer} pesos</p>`)
+
+    extraer(dineroAExtraer) {
+        if (this.saldo < dineroAExtraer) {
+            document.write(`<p>Su saldo es insuficiente para extraer $${dineroAExtraer}`);
+        } else {
+            this.saldo = this.saldo - dineroAExtraer;
+            document.write(`<p>${this.titular} retiró $${dineroAExtraer} de la cuenta. El saldo actual es: ${this.saldo}.</p>`)
+        }
+        
     }
-    informar(){
-        let resta = parseInt (this.ingresar) - parseInt (this.extraer);
-        document.write('Usted tiene en la cuenta actualmente: '+resta + ' pesos')
+
+    informar() {
+        document.write(`<p>Cliente: ${this.titular}</p><p>Su saldo es: $${this.saldo}</p>`);
     }
 }
 
 const persona1 = new cuenta ('Alex', 0);
-persona1.ingresar();
-persona1.extraer();
+let dineroADepositar = parseInt(prompt('Ingrese la cantidad a depositar: '));
+persona1.ingresar(dineroADepositar);
+let dineroAExtraer = parseInt(prompt('Ingrese la cantidad de dinero a extraer: '));
+persona1.extraer(dineroAExtraer);
 persona1.informar();
